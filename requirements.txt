@@ -4,3 +4,4 @@ extra-streamlit-components
 bytesbufio
 pyxlsb
 unidecode
+openpyxl
