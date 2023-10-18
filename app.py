@@ -22,20 +22,8 @@ def to_excel(df):
     processed_data = output.getvalue()
     return processed_data
 
-###################################
-from st_aggrid import AgGrid
-from st_aggrid.grid_options_builder import GridOptionsBuilder
-from st_aggrid.shared import JsCode
-from gsheetsdb import connect
-import gspread
 
 
-
-###################################
-
-from functionforDownloadButtons import download_button
-
-###################################
 
 
 

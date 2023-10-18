@@ -1,0 +1,6 @@
+streamlit
+click==8
+extra_streamlit_components
+io
+pyxlsb
+unidecode
