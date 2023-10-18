@@ -1,6 +1,6 @@
 streamlit
 click==8
 extra-streamlit-components
-io
+bytesbufio
 pyxlsb
 unidecode
