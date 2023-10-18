@@ -167,7 +167,7 @@ with st.expander("Операции %"):
     data['Процент'] = data['Процент'].round(1)
     st.write(data)
     df_xlsx = to_excel(data)
-    st.download_button(label='📥 Загрузить',data=df_xlsx,file_name='table.xlsx')
+    st.download_button(label='📥 Загрузить',data=df_xlsx,file_name='table.xlsx', key='data')
 
 
 with st.expander("Все %"):
@@ -177,7 +177,7 @@ with st.expander("Все %"):
     days.loc[:,'Все дни']= days.sum(numeric_only=True, axis=1)
     st.write(days)
     df_xlsx = to_excel(days)
-    st.download_button(label='📥 Загрузить',data=df_xlsx,file_name='table.xlsx')
+    st.download_button(label='📥 Загрузить',data=df_xlsx,file_name='table.xlsx', key='days')
 
 
 with st.expander("Ед. изм – Час", True):
@@ -188,7 +188,7 @@ with st.expander("Ед. изм – Час", True):
     npo.loc[:,'Все дни']= npo.sum(numeric_only=True, axis=1)
     st.write(npo)
     df_xlsx = to_excel(npo)
-    st.download_button(label='📥 Загрузить',data=df_xlsx,file_name='часы.xlsx')
+    st.download_button(label='📥 Загрузить',data=df_xlsx,file_name='часы.xlsx', key='npo')
 
 with st.expander("Ед. изм – Штуки", True):
     exc = data.loc[(data['Ед. изм.'] >= 'час') & (data['Процент'] > 90)]
@@ -201,7 +201,7 @@ with st.expander("Ед. изм – Штуки", True):
     sht.loc[:,'Все дни']= sht.sum(numeric_only=True, axis=1)
     st.write(sht)
     df_xlsx = to_excel(sht)
-    st.download_button(label='📥 Загрузить',data=df_xlsx,file_name='штуки.xlsx')
+    st.download_button(label='📥 Загрузить',data=df_xlsx,file_name='штуки.xlsx', key='sht')
 
 
 st.write('Количество операций')
@@ -211,4 +211,4 @@ quantity = quantity.groupby(['Операционный день', 'ФИО', 'О�
 quantity = quantity.pivot_table(index=['ФИО', 'Операция'], columns=['Операционный день'], values="Количество", fill_value=0)
 st.write(quantity)
 df_xlsx = to_excel(quantity)
-st.download_button(label='📥 Загрузить',data=df_xlsx,file_name='операции.xlsx')
+st.download_button(label='📥 Загрузить',data=df_xlsx,file_name='операции.xlsx', key='ops')
