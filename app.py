@@ -173,7 +173,7 @@ with st.expander("Операции %"):
 with st.expander("Все %"):
     days = data.groupby(['Операционный день', 'ФИО']).agg(sum).reset_index() #Все и часы и штуки
     days = days.pivot_table(index="ФИО", columns="Операционный день", values="Процент", fill_value=0)
-    days.loc['Среднее']= days.mean(numeric_only=True, axis=0)
+    days.loc['Среднее']= days[days != 0].mean(numeric_only=True, axis=0)
     days.loc[:,'Все дни']= days.sum(numeric_only=True, axis=1)
     st.write(days)
     df_xlsx = to_excel(days)
@@ -184,7 +184,7 @@ with st.expander("Ед. изм – Час", True):
     npo = data.loc[data['Ед. изм.'] == 'час']
     npo = npo.groupby(['Операционный день', 'ФИО']).agg(sum).reset_index()
     npo = npo.pivot_table(index="ФИО", columns="Операционный день", values="Процент", fill_value=0)
-    npo.loc['Среднее']= npo.mean(numeric_only=True, axis=0)
+    npo.loc['Среднее']= npo[npo != 0].mean(numeric_only=True, axis=0)
     npo.loc[:,'Все дни']= npo.sum(numeric_only=True, axis=1)
     st.write(npo)
     df_xlsx = to_excel(npo)
@@ -197,22 +197,22 @@ with st.expander("Ед. изм – Штуки", True):
     sht = sht.loc[sht['Ед. изм.'].isin(['шт','НЗН'])]
     sht = sht.groupby(['Операционный день', 'ФИО']).agg(sum).reset_index()
     sht = sht.pivot_table(index="ФИО", columns="Операционный день", values="Процент", fill_value=0)
-    sht.loc['Среднее']= sht.mean(numeric_only=True, axis=0)
+    sht.loc['Среднее']= sht[sht != 0].mean(numeric_only=True, axis=0)
     sht.loc[:,'Все дни']= sht.sum(numeric_only=True, axis=1)
     st.write(sht)
     df_xlsx = to_excel(sht)
     st.download_button(label='📥 Загрузить',data=df_xlsx,file_name='штуки.xlsx', key='sht')
 
-with st.expander("Деньги", True):
-    m_npo = npo.astype(int)/100*4840
-    st.write(m_npo)
-    df_xlsx = to_excel(m_npo)
-    st.download_button(label='📥 Загрузить',data=df_xlsx,file_name='часы.xlsx', key='m_npo')
-    st.markdown("""---""")
-    m_sht = sht.astype(int)/100*7150
-    st.write(m_sht)
-    df_xlsx = to_excel(m_sht)
-    st.download_button(label='📥 Загрузить',data=df_xlsx,file_name='часы.xlsx', key='m_sht')
+# with st.expander("Деньги", True):
+#     m_npo = npo.astype(int)/100*4840
+#     st.write(m_npo)
+#     df_xlsx = to_excel(m_npo)
+#     st.download_button(label='📥 Загрузить',data=df_xlsx,file_name='часы.xlsx', key='m_npo')
+#     st.markdown("""---""")
+#     m_sht = sht.astype(int)/100*7150
+#     st.write(m_sht)
+#     df_xlsx = to_excel(m_sht)
+#     st.download_button(label='📥 Загрузить',data=df_xlsx,file_name='часы.xlsx', key='m_sht')
 
 with st.expander("Деньги (для человека)", True):
     pay_npo = npo.astype(int)/100*3000
