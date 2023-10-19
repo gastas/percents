@@ -160,14 +160,14 @@ with st.sidebar:
 with st.expander(saved_file_name): 
     st.write(data)
 
-with st.expander("Операции %"):
-    data = data.drop(columns=['Площадка', 'WMS login'])
-    data['Процент'] = data['Сумма']/7150*100
-    data.loc[data['Ед. изм.'] == 'час', ['Процент']] = data['Сумма']/4840*100
-    data['Процент'] = data['Процент'].round(1)
-    st.write(data)
-    df_xlsx = to_excel(data)
-    st.download_button(label='📥 Загрузить',data=df_xlsx,file_name='table.xlsx', key='data')
+# with st.expander("Операции %"):
+data = data.drop(columns=['Площадка', 'WMS login'])
+data['Процент'] = data['Сумма']/7150*100
+data.loc[data['Ед. изм.'] == 'час', ['Процент']] = data['Сумма']/4840*100
+data['Процент'] = data['Процент'].round(1)
+    # st.write(data)
+    # df_xlsx = to_excel(data)
+    # st.download_button(label='📥 Загрузить',data=df_xlsx,file_name='table.xlsx', key='data')
 
 
 with st.expander("Все %"):
