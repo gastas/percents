@@ -216,14 +216,19 @@ with st.expander("Ед. изм – Штуки", True):
 
 with st.expander("Деньги (для человека)", True):
     pay_npo = npo.astype(int)/100*3000
-    st.write(pay_npo)
-    df_xlsx = to_excel(pay_npo)
-    st.download_button(label='📥 Загрузить',data=df_xlsx,file_name='часы.xlsx', key='pay_npo')
-    st.markdown("""---""")
+    # st.write(pay_npo)
+    # df_xlsx = to_excel(pay_npo)
+    # st.download_button(label='📥 Загрузить',data=df_xlsx,file_name='часы.xlsx', key='pay_npo')
+    # st.markdown("""---""")
     pay_sht = sht.astype(int)/100*4000
-    st.write(pay_sht)
-    df_xlsx = to_excel(pay_sht)
-    st.download_button(label='📥 Загрузить',data=df_xlsx,file_name='часы.xlsx', key='pay_sht')
+    # st.write(pay_sht)
+    # df_xlsx = to_excel(pay_sht)
+    # st.download_button(label='📥 Загрузить',data=df_xlsx,file_name='часы.xlsx', key='pay_sht')
+
+    pay = pd.concat([pay_npo, pay_sht]).groupby(['ФИО']).sum().reset_index()
+    st.write(pay)
+    df_xlsx = to_excel(pay)
+    st.download_button(label='📥 Загрузить',data=df_xlsx,file_name='часы.xlsx', key='pay')
 
 
 st.write('Количество операций')
